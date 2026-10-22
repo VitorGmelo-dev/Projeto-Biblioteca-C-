@@ -1,0 +1,75 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+struct Livro {
+    int cod;
+    string nome;
+    string autor;
+    int ano;
+};
+
+int main() {
+    vector<Livro> estante;
+    int esc = -1;
+
+    while (esc != 0) {
+        cout << "OLÁ, o que você gostaria de fazer hoje?\n";
+        cout << "1 - Cadastrar livro\n";
+        cout << "2 - Remover livro\n";
+        cout << "3 - Trocar livro de posição\n";
+        cout << "0 - Encerrar o programa\n";
+        cin >> esc;
+
+        switch (esc) {
+            case 1: {
+                Livro novo;
+
+                cout << "Digite o código: ";
+                cin >> novo.cod;
+                cin.ignore();
+
+                cout << "Digite o nome: ";
+                getline(cin, novo.nome);
+
+                cout << "Digite o autor: ";
+                getline(cin, novo.autor);
+
+                cout << "Digite o ano: ";
+                cin >> novo.ano;
+
+                estante.push_back(novo);
+                cout << "Livro cadastrado na posição " << estante.size() << "!\n\n";
+                break;
+            }
+            case 2: {
+                if (estante.empty()) {
+                    cout << "A estante está vazia.\n";
+                    break;
+                }
+
+                int pos;
+                cout << "Qual a posição do livro que você quer remover? ";
+                cin >> pos;
+
+                if (pos < 1 || pos > estante.size()) {
+                    cout << "Posição inválida.\n";
+                } else {
+                    estante.erase(estante.begin() + (pos - 1));
+                    cout << "Livro removido!\n";
+                }
+                break;
+            }
+            case 3:
+                break;
+            case 0:
+                cout << "Encerrando...\n";
+                break;
+            default:
+                cout << "Opção inválida.\n";
+        }
+    }
+
+    return 0;
+}
